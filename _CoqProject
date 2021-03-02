@@ -1,5 +1,6 @@
 -Q ./lib SSL_Iris
--R ./iris/ iris
+-Q ./iris/iris iris
+-Q ./iris/iris_heap_lang iris.heap_lang
 -arg "-w -notation-overridden"
 
 lib/core.v
