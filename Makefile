@@ -6,6 +6,9 @@ clean: Makefile.coq
 	make -f Makefile.coq clean
 	rm -f Makefile.coq
 
+examples: default
+	$(MAKE) -C examples
+
 install: Makefile.coq
 	make -f Makefile.coq install
 

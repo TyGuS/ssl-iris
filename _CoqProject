@@ -1,4 +1,4 @@
--Q . SSL_Iris
+-Q ./lib SSL_Iris
 -arg "-w -notation-overridden"
 
 lib/core.v
