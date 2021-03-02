@@ -1,5 +1,5 @@
 all: default doc
-default: Makefile.coq iris
+default: Makefile.coq
 	make -f Makefile.coq
 
 clean: Makefile.coq
