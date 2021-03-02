@@ -1,5 +1,5 @@
 all: default doc
-default: Makefile.coq
+default: Makefile.coq iris
 	make -f Makefile.coq
 
 clean: Makefile.coq
@@ -12,10 +12,13 @@ benchmarks: default
 
 install: Makefile.coq
 	make -f Makefile.coq install
-	$(MAKE) -c iris
-	$(MAKE) -c iris install
+	$(MAKE) -C iris
+	$(MAKE) -C iris install
 
 Makefile.coq: _CoqProject
 	coq_makefile -f _CoqProject -o Makefile.coq
 
-.PHONY: coq clean install doc
+iris:
+	$(MAKE) -C iris
+
+.PHONY: coq clean install doc iris
