@@ -18,7 +18,7 @@ Local Tactic Notation "iAndDestruct" constr(H) "as" constr(H1) constr(H2) :=
        | _ => idtac
      end].
 
-Local Ltac movePure :=
+Ltac movePure :=
   iStartProof;
   let rec go Hs := match Hs with [] => idtac | ?H :: ?Hs => (try iDestruct H as "%"); go Hs end in
   match goal with
