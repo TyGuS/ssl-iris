@@ -23,11 +23,35 @@ Global Opaque sll.
 
 Lemma sll_card_0_learn (x: loc) (s: (list Z)) self_card:
 sll x s self_card  ⊢ sll x s self_card ∗ ⌜(x = null_loc) -> self_card = sll_card_0⌝.
-Proof. Admitted.
+Proof.
+Transparent sll.
+destruct self_card; iIntros "P".
+- iDestruct "P" as  "(% & %)".
+   iSplitL.
+    iFrame. eauto.
+   eauto.
+- iDestruct "P" as (v s1 nxt) "((% & %) & (? & ? & ? & ?))".
+   iSplitL.
+   iExists v, s1, nxt. iFrame. eauto.
+   eauto.
+Global Opaque sll.
+Qed.
 
 Lemma sll_card_1_learn (x: loc) (s: (list Z)) self_card:
 sll x s self_card  ⊢ sll x s self_card ∗ ⌜~ (x = null_loc) -> ∃ _alpha_513, self_card = (sll_card_1 _alpha_513)⌝.
-Proof. Admitted.
+Proof.
+Transparent sll.
+destruct self_card; iIntros "P".
+- iDestruct "P" as  "(% & %)".
+   iSplitL.
+    iFrame. eauto.
+   eauto.
+- iDestruct "P" as (v s1 nxt) "((% & %) & (? & ? & ? & ?))".
+   iSplitL.
+   iExists v, s1, nxt. iFrame. eauto.
+   eauto.
+Global Opaque sll.
+Qed.
 
 Lemma sll_card_0_open  (x: loc) (s: (list Z)) :
 sll x s (sll_card_0 ) = (⌜(x = null_loc) ∧ (s = [])⌝)%I.

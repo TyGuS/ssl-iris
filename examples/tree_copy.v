@@ -45,11 +45,35 @@ Global Opaque sll.
 
 Lemma tree_card_0_learn (x: loc) (s: (list Z)) self_card:
 tree x s self_card  ⊢ tree x s self_card ∗ ⌜(x = null_loc) -> self_card = tree_card_0⌝.
-Proof. Admitted.
+Proof.
+Transparent tree.
+destruct self_card; iIntros "P".
+- iDestruct "P" as  "(% & %)".
+   iSplitL.
+    iFrame. eauto.
+   eauto.
+- iDestruct "P" as (v s1 s2 l r) "((% & %) & (? & ? & ? & ? & ? & ?))".
+   iSplitL.
+   iExists v, s1, s2, l, r. iFrame. eauto.
+   eauto.
+Global Opaque tree.
+Qed.
 
 Lemma tree_card_2_learn (x: loc) (s: (list Z)) self_card:
 tree x s self_card  ⊢ tree x s self_card ∗ ⌜~ (x = null_loc) -> ∃ _alpha_514 _alpha_513, self_card = (tree_card_2 _alpha_514 _alpha_513)⌝.
-Proof. Admitted.
+Proof.
+Transparent tree.
+destruct self_card; iIntros "P".
+- iDestruct "P" as  "(% & %)".
+   iSplitL.
+    iFrame. eauto.
+   eauto.
+- iDestruct "P" as (v s1 s2 l r) "((% & %) & (? & ? & ? & ? & ? & ?))".
+   iSplitL.
+   iExists v, s1, s2, l, r. iFrame. eauto.
+   eauto.
+Global Opaque tree.
+Qed.
 
 Lemma tree_card_0_open  (x: loc) (s: (list Z)) :
 tree x s (tree_card_0 ) = (⌜(x = null_loc) ∧ (s = [])⌝)%I.
@@ -61,11 +85,35 @@ Proof. auto. Qed.
 
 Lemma treeN_card_0_learn (x: loc) (n: Z) self_card:
 treeN x n self_card  ⊢ treeN x n self_card ∗ ⌜(x = null_loc) -> self_card = treeN_card_0⌝.
-Proof. Admitted.
+Proof.
+Transparent treeN.
+destruct self_card; iIntros "P".
+- iDestruct "P" as  "(% & %)".
+   iSplitL.
+    iFrame. eauto.
+   eauto.
+- iDestruct "P" as (n1 n2 v l r) "((% & % & % & %) & (? & ? & ? & ? & ? & ?))".
+   iSplitL.
+   iExists n1, n2, v, l, r. iFrame. eauto.
+   eauto.
+Global Opaque treeN.
+Qed.
 
 Lemma treeN_card_2_learn (x: loc) (n: Z) self_card:
 treeN x n self_card  ⊢ treeN x n self_card ∗ ⌜~ (x = null_loc) -> ∃ _alpha_516 _alpha_515, self_card = (treeN_card_2 _alpha_516 _alpha_515)⌝.
-Proof. Admitted.
+Proof.
+Transparent treeN.
+destruct self_card; iIntros "P".
+- iDestruct "P" as  "(% & %)".
+   iSplitL.
+    iFrame. eauto.
+   eauto.
+- iDestruct "P" as (n1 n2 v l r) "((% & % & % & %) & (? & ? & ? & ? & ? & ?))".
+   iSplitL.
+   iExists n1, n2, v, l, r. iFrame. eauto.
+   eauto.
+Global Opaque treeN.
+Qed.
 
 Lemma treeN_card_0_open  (x: loc) (n: Z) :
 treeN x n (treeN_card_0 ) = (⌜(x = null_loc) ∧ (n = 0)⌝)%I.
@@ -77,11 +125,35 @@ Proof. auto. Qed.
 
 Lemma sll_card_0_learn (x: loc) (s: (list Z)) self_card:
 sll x s self_card  ⊢ sll x s self_card ∗ ⌜(x = null_loc) -> self_card = sll_card_0⌝.
-Proof. Admitted.
+Proof.
+Transparent sll.
+destruct self_card; iIntros "P".
+- iDestruct "P" as  "(% & %)".
+   iSplitL.
+    iFrame. eauto.
+   eauto.
+- iDestruct "P" as (v s1 nxt) "((% & %) & (? & ? & ? & ?))".
+   iSplitL.
+   iExists v, s1, nxt. iFrame. eauto.
+   eauto.
+Global Opaque sll.
+Qed.
 
 Lemma sll_card_1_learn (x: loc) (s: (list Z)) self_card:
 sll x s self_card  ⊢ sll x s self_card ∗ ⌜~ (x = null_loc) -> ∃ _alpha_517, self_card = (sll_card_1 _alpha_517)⌝.
-Proof. Admitted.
+Proof.
+Transparent sll.
+destruct self_card; iIntros "P".
+- iDestruct "P" as  "(% & %)".
+   iSplitL.
+    iFrame. eauto.
+   eauto.
+- iDestruct "P" as (v s1 nxt) "((% & %) & (? & ? & ? & ?))".
+   iSplitL.
+   iExists v, s1, nxt. iFrame. eauto.
+   eauto.
+Global Opaque sll.
+Qed.
 
 Lemma sll_card_0_open  (x: loc) (s: (list Z)) :
 sll x s (sll_card_0 ) = (⌜(x = null_loc) ∧ (s = [])⌝)%I.
