@@ -1,12 +1,13 @@
 From SSL_Iris Require Import core.
 From iris.heap_lang Require Import lang notation proofmode.
 From iris_string_ident Require Import ltac2_string_ident.
+
 Section common.
 Context `{!heapG Σ}.
 
 
 (*** Least fixpoint definition ***)
-Canonical Structure list0 := leibnizO (list Z).
+Canonical Structure listO := leibnizO (list Z).
 
 Definition sll' (f : loc * list Z -> iProp Σ) (arg : loc * list Z) : iProp Σ :=
   let (x, s) := arg in
@@ -21,9 +22,11 @@ Proof.
     iDestruct "B" as (v1 s1 next) "(? & ? & ? & ? & ?)".
     iExists v1, s1, next.
     iFrame. by iApply "H".
-  - intros.
-    intros ???.
-Admitted.
+  - intros f Hf n [x1 s1] [x2 s2].
+    intros [?%leibniz_equiv ?%leibniz_equiv].
+    simpl in H0. simpl in H1.
+    by subst.
+Qed.
 
 Definition sll_ := fixpoint.bi_least_fixpoint sll'.
 
