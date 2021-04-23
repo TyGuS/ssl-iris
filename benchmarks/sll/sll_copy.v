@@ -34,8 +34,83 @@ let: "y2" := AllocN (#2) (#()) in
 #()
 ).
 
+(*** Least fixpoint ***)
 
 Lemma sll_copy_spec :
+∀ (r : loc) (x : loc) (s : (list Z)),
+{{{ r ↦ #x ∗ (sll_ (x, s)) }}}
+  sll_copy #r
+{{{ RET #(); ∃ (y : loc), r ↦ #y ∗ (sll_ (x, s)) ∗ (sll_ (y, s)) }}}.
+Proof.
+  
+iIntros (r x s ϕ) "(iH1 & iH2) Post".
+iRewriteHyp.
+iLöb as "sll_copy" forall (r x s ϕ).
+ssl_begin.
+try rename x into x2.
+ssl_load.
+iRename select ((sll_ (x2, s)))%I into "iH3".
+ssl_if Cond_iH3.
+
+iDestruct (cons_0_open x2 with "iH3") as "(%iH4 & %iH5)"; first by safeDispatchPure.
+ssl_finish.
+iFindApply.
+iExists null_loc.
+ssl_finish.
+ssl_finish.
+iApply (cons_0_open null_loc); first by safeDispatchPure.
+ssl_finish.
+
+iDestruct (cons_1_open x2 with "iH3") as "iH3"; first by safeDispatchPure.
+iDestruct "iH3" as (vx2 s1x2 nxtx2) "((%iH6 & %iH7) & (iH8 & iH9 & iH10 & iH11))".
+try rename vx2 into vx22.
+ssl_load.
+try rename nxtx2 into nxtx22.
+ssl_load.
+ssl_store.
+wp_apply ("sll_copy" $! (r) (nxtx22) (s1x2) with "[$] [$]").
+
+iIntros  "iH15".
+iDestruct "iH15" as (y1) "(iH12 & iH13 & iH14)".
+try wp_pures.
+try rename y1 into y12.
+ssl_load.
+wp_alloc y2 as "?"; try by safeDispatchPure.
+wp_pures.
+do 2 try rewrite array_cons. iSplitAllHyps. try rewrite array_nil.
+try rewrite !loc_add_assoc !Z.add_1_r.
+
+movePure.
+ssl_store.
+ssl_store.
+ssl_store.
+try wp_pures.
+iFindApply.
+iExists y2.
+ssl_finish.
+
+(* This is where we would use ssl_rewrite_first_heap. We prefer rewriting rather than
+   the iSplitL/iSplitR because the latter forces us to keep track of which resources are
+   used in which branch.*)
+(* iDestruct (cons_1_open x2 ([vx22] ++ s1x2) iH6) as "H". *)
+(* iRewrite "H". *) (* Does not work... *)
+iSplitL "iH9 iH10 iH13".
+iApply (cons_1_open x2 ([vx22] ++ s1x2)); first by safeDispatchPure.
+iExists vx22.
+iExists s1x2.
+iExists nxtx22.
+ssl_finish.
+
+iApply (cons_1_open y2 ([vx22] ++ s1x2)); first by safeDispatchPure.
+iExists vx22.
+iExists s1x2.
+iExists y12.
+ssl_finish.
+Qed.
+
+(*** Cardinality ***)
+
+Lemma sll_copy_spec' :
 ∀ (r : loc) (x : loc) (s : (list Z)) (a : sll_card),
 {{{ r ↦ #x ∗ (sll x s a) }}}
   sll_copy #r
