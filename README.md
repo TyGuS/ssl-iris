@@ -13,10 +13,16 @@ Coq tactics for the [Iris](https://gitlab.mpi-sws.org/iris/iris) framework to su
 
 We recommend installing with [OPAM](https://opam.ocaml.org/doc/Install.html).
 
+After cloning this repo:
+
 ```
+# inside the ssl-iris folder
+git submodule init && git submodule update
 opam repo add coq-released https://coq.inria.fr/opam/released
 opam repo add iris-dev https://gitlab.mpi-sws.org/iris/opam.git
-opam install coq coq-iris.dev.2021-02-24.0.ffcaed52 coq-iris-heap-lang coq-ssl-iris
+opam pin add iris
+opam pin add string-ident
+opam install .
 ```
 
 ### Manually

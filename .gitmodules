@@ -1,3 +1,6 @@
 [submodule "iris"]
 	path = iris
 	url = https://github.com/TyGuS/iris
+[submodule "string-ident"]
+	path = string-ident
+	url = https://gitlab.mpi-sws.org/iris/string-ident.git
