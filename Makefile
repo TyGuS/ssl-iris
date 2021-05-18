@@ -12,8 +12,6 @@ benchmarks: default
 
 install: Makefile.coq
 	make -f Makefile.coq install
-	$(MAKE) -C iris
-	$(MAKE) -C iris install
 
 Makefile.coq: _CoqProject
 	coq_makefile -f _CoqProject -o Makefile.coq
